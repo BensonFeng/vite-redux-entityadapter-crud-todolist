@@ -10,9 +10,11 @@ export const todoSelectors = todoAdapter.getSelectors((state) => state.todos);
 const todoSlice = createSlice({
   name: "todos",
   initialState: todoAdapter.getInitialState(),
-  reducers: {},
+  reducers: {
+    addTodo: todoAdapter.addOne,
+  },
 });
 
-export const {} = todoSlice.actions;
+export const { addTodo } = todoSlice.actions;
 
 export default todoSlice.reducer;
