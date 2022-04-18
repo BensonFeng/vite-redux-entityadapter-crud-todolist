@@ -13,9 +13,13 @@ const todoSlice = createSlice({
   reducers: {
     addTodo: todoAdapter.addOne,
     addTodos: todoAdapter.addMany,
+    deleteTodo: todoAdapter.removeOne,
+    clearTodo: todoAdapter.removeAll,
+    updateOne: todoAdapter.updateOne,
   },
 });
 
-export const { addTodo, addTodos } = todoSlice.actions;
+export const { addTodo, addTodos, deleteTodo, clearTodo, updateOne } =
+  todoSlice.actions;
 
 export default todoSlice.reducer;

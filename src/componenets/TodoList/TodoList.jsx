@@ -4,6 +4,7 @@ import Todo from "./Todo";
 
 const TodoList = () => {
   const allTodos = useSelector(todoSelectors.selectEntities);
+  const todoCount = useSelector(todoSelectors.selectTotal);
 
   const todoList = [];
   console.log("new");
@@ -25,7 +26,7 @@ const TodoList = () => {
   return (
     <div className="todo-list">
       <h3>Your Todos:</h3>
-      <h4>Count:</h4>
+      <h4>Count:{todoCount}</h4>
       <button className="delete-btn"> Clear All Todos</button>
       <div>{todoList}</div>
     </div>
