@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../../store/todoSlice";
+import { addTodo, addTodos } from "../../store/todoSlice";
 import { nanoid } from "@reduxjs/toolkit";
 
 const AddTodo = () => {
@@ -9,7 +9,19 @@ const AddTodo = () => {
 
   const submit = () => {
     if (text.length > 0) {
-      dispatch(addTodo({ id: nanoid(), todo: text, completed: false }));
+      // dispatch(addTodo({ id: nanoid(), todo: text, completed: false }));
+
+      const items = text.split(",");
+      // first method - dispatch separate actions for each item
+      // items.forEach((item) =>
+      //   dispatch(addTodo({ id: nanoid(), todo: text, completed: false }))
+      // );
+      // second method - dispatch one action for all items - better
+      dispatch(
+        addTodos(
+          items.map((item) => ({ id: nanoid(), todo: item, completed: false }))
+        )
+      );
     }
   };
   return (
