@@ -4,7 +4,9 @@ import { deleteTodo, updateTodo } from "../../store/todoSlice";
 
 const Todo = ({ text, completed, id }) => {
   const dispatch = useDispatch();
-  const toggle = () => {};
+  const toggle = () => {
+    dispatch(updateTodo({ id, changes: { completed: !completed } }));
+  };
   const deleteItem = () => {
     dispatch(deleteTodo(id));
   };
