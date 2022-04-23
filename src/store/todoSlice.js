@@ -21,10 +21,22 @@ const todoSlice = createSlice({
     },
     clearTodos: todoAdapter.removeAll,
     updateTodo: todoAdapter.updateOne,
+    restoreTodo(state, action) {
+      todoAdapter.addOne(state, action);
+      state.deletedTodos = state.deletedTodos.filter(
+        (item) => item.id !== action.payload.id
+      );
+    },
   },
 });
 
-export const { addTodo, addTodos, deleteTodo, clearTodos, updateTodo } =
-  todoSlice.actions;
+export const {
+  addTodo,
+  addTodos,
+  deleteTodo,
+  clearTodos,
+  updateTodo,
+  restoreTodo,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;
