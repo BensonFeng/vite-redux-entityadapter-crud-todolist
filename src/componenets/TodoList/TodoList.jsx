@@ -7,7 +7,6 @@ const TodoList = () => {
   const todoCount = useSelector(todoSelectors.selectTotal);
 
   const todoList = [];
-  console.log("new");
 
   for (const id in allTodos) {
     if (Object.hasOwnProperty.call(allTodos, id)) {
@@ -17,7 +16,7 @@ const TodoList = () => {
           key={todoItem.id}
           id={todoItem.id}
           completed={todoItem.completed}
-          text={todoItem.text}
+          text={todoItem.todo}
         />
       );
     }
