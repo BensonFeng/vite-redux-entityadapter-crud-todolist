@@ -1,8 +1,4 @@
-import {
-  createEntityAdapter,
-  createSlice,
-  configureStore,
-} from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 export const todoAdapter = createEntityAdapter();
 export const todoSelectors = todoAdapter.getSelectors((state) => state.todos);
@@ -34,6 +30,7 @@ export const {
   addTodo,
   addTodos,
   deleteTodo,
+  deleteTodos,
   clearTodos,
   updateTodo,
   restoreTodo,

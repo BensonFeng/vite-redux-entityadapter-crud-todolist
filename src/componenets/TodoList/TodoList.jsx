@@ -1,15 +1,16 @@
+import { nanoid } from "@reduxjs/toolkit";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { todoSelectors, clearTodos } from "../../store/todoSlice";
+import { restoreTodo, clearTodos, todoSelectors } from "../../store/todoSlice";
 import Todo from "./Todo";
 
 const TodoList = () => {
+  const dispatch = useDispatch();
   const allTodos = useSelector(todoSelectors.selectEntities);
   const todoCount = useSelector(todoSelectors.selectTotal);
   const deletedTodos = useSelector((state) => state.todos.deletedTodos);
-  const dispatch = useDispatch();
 
   const todoList = [];
-
   for (const id in allTodos) {
     if (Object.hasOwnProperty.call(allTodos, id)) {
       const todoItem = allTodos[id];
@@ -17,34 +18,38 @@ const TodoList = () => {
         <Todo
           key={todoItem.id}
           id={todoItem.id}
-          completed={todoItem.completed}
           text={todoItem.todo}
+          completed={todoItem.completed}
         />
       );
     }
   }
-  const restore = () => {};
-  const deleteList = deletedTodos.map((item) => (
-    <div className="deleted-todo" key={item.id}>
-      <span>{item.todo}</span>
-      <button onClick={() => restore(item.id)}>Restore</button>
+
+  const restore = (todo) => {
+    dispatch(restoreTodo(todo));
+  };
+
+  const deletedList = deletedTodos.map((todo) => (
+    <div className="deleted-todo" key={todo.id}>
+      <span>{todo.todo}</span>
+      <button onClick={() => restore(todo)}>Restore</button>
     </div>
   ));
+
+  const clearList = () => {
+    dispatch(clearTodos());
+  };
+
   return (
     <div className="todo-list">
       <h3>Your Todos:</h3>
-      <h4>Count:{todoCount}</h4>
-      <button
-        className="delete-btn"
-        onClick={() => {
-          dispatch(clearTodos());
-        }}
-      >
+      <h4>Count: {todoCount}</h4>
+      <button className="delete-btn" onClick={clearList}>
         Clear All Todos
       </button>
       <div>{todoList}</div>
-      <h3>Deleted Todos:</h3>
-      <div>{deleteList}</div>
+      <h3>Deleted:</h3>
+      <div>{deletedList}</div>
     </div>
   );
 };
