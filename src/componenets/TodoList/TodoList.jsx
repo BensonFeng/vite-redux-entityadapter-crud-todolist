@@ -5,6 +5,7 @@ import Todo from "./Todo";
 const TodoList = () => {
   const allTodos = useSelector(todoSelectors.selectEntities);
   const todoCount = useSelector(todoSelectors.selectTotal);
+  const deletedTodos = useSelector((state) => state.todos.deletedTodos);
   const dispatch = useDispatch();
 
   const todoList = [];
@@ -22,7 +23,13 @@ const TodoList = () => {
       );
     }
   }
-
+  const restore = () => {};
+  const deleteList = deletedTodos.map((item) => (
+    <div className="deleted-todo" key={item.id}>
+      <span>{item.todo}</span>
+      <button onClick={() => restore(item.id)}>Restore</button>
+    </div>
+  ));
   return (
     <div className="todo-list">
       <h3>Your Todos:</h3>
@@ -36,6 +43,8 @@ const TodoList = () => {
         Clear All Todos
       </button>
       <div>{todoList}</div>
+      <h3>Deleted Todos:</h3>
+      <div>{deleteList}</div>
     </div>
   );
 };

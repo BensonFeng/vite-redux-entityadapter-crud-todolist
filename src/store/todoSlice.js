@@ -9,11 +9,16 @@ export const todoSelectors = todoAdapter.getSelectors((state) => state.todos);
 
 const todoSlice = createSlice({
   name: "todos",
-  initialState: todoAdapter.getInitialState(),
+  initialState: todoAdapter.getInitialState({
+    deletedTodos: [],
+  }),
   reducers: {
     addTodo: todoAdapter.addOne,
     addTodos: todoAdapter.addMany,
-    deleteTodo: todoAdapter.removeOne,
+    deleteTodo(state, action) {
+      state.deletedTodos.push(state.entities[action.payload]);
+      todoAdapter.removeOne(state, action);
+    },
     clearTodos: todoAdapter.removeAll,
     updateTodo: todoAdapter.updateOne,
   },
