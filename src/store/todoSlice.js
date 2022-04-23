@@ -14,12 +14,12 @@ const todoSlice = createSlice({
     addTodo: todoAdapter.addOne,
     addTodos: todoAdapter.addMany,
     deleteTodo: todoAdapter.removeOne,
-    clearTodo: todoAdapter.removeAll,
-    updateOne: todoAdapter.updateOne,
+    clearTodos: todoAdapter.removeAll,
+    updateTodo: todoAdapter.updateOne,
   },
 });
 
-export const { addTodo, addTodos, deleteTodo, clearTodo, updateOne } =
+export const { addTodo, addTodos, deleteTodo, clearTodos, updateTodo } =
   todoSlice.actions;
 
 export default todoSlice.reducer;
